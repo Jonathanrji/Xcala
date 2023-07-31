@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Dark Theme</title>
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #2d3748;
+    }
+    .curso-banner {
+      background-color: #3b82f6;
+      border-radius: 20px;
+    }
+
+.card1 {
+  width: 300px;
+  border-radius: 20px;
+  background: #FFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  padding: 8px 20px 8px 20px;
+  overflow: hidden;
+  position:relative;
+  z-index: 1;
+  border: 3px solid #EDEDED;
+  
+}
+
+.card1 h2 {
+  margin-bottom:10px;
+  margin-top: 25px;
+    text-align: left;
+    font-size:32px;
+    color: #0C231F;
+    font-weight: 600;
+}
+
+.card1 p {
+  margin-bottom: 20px;
+  text-align: left;
+  color: rgba(12, 35, 31, 0.60);
+}
+
+.card1 ul {
+  margin-bottom: 10px;
+  padding-left: 0;
+  list-style: none;
+  
+}
+
+.card1 ul li {
+  display: flex;
+  margin-bottom: 5px;
+  
+}
+.card1 li {
+  display: flex;
+  text-align: left;
+  color:#0C231F;
+  font-size: 16px;
+}
+
+.card1 ul li::before {
+  content: "";
+  font-family: "Font Awesome 6 Solid";
+  font-weight: 900;
+  color: #E1FFA0;
+}
+
+
+.card1 button {
+    background-color: #277768;
+    border: none;
+    transition: background-color 0.5s ease-out;
+    border-radius: 8px;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+.card1 button:hover {
+    background: #0C231F;
+    border: none;
+}
+.card1 button:active {
+    border: none;
+}
+
+
+.fa-check-circle {
+            color: #E1FFA0;
+            margin-right:10px;
+            margin-top: 4px;
+        }
+/* Add the styles for the white rectangle */
+.white-rectangle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 334px;
+  height: 160px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1; /* Set the z-index to make sure it appears above the filtered content */
+}
+
+/* Add styles for the text inside the white rectangle */
+.white-rectangle p {
+  font-size: 18px;
+  font-weight: bold;
+  color:rgba(12, 35, 31, 0.60);
+  opacity: 1;
+}
+
+/* Adjust the position of the filtered content to appear above the white rectangle */
+#forex {
+  position: relative;
+}
+
+/* Add the styles to keep the blur filter on the #forex section */
+#forex .bg-gray-800 {
+  filter: blur(5px);
+}
+
+  /* Add the styles to remove the blur filter on the #forex section when the plan is 'vip' */
+  #forex.disable-blur-filter .bg-gray-800 {
+    filter: none;
+  }
+  .card-cloned {
+  width: 100% !important;
+  max-width: unset !important;
+}
+
+  </style>
+</head>
+<body>
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside class="bg-gray-900 w-1/4 min-h-screen p-8">
+      <h1 class="text-white text-3xl font-bold mb-8">Dashboard</h1>
+      <ul class="text-white space-y-4">
+        <li>
+          <button onclick="showSection('cursos')" class="py-2 px-4 w-full text-left">Cursos</button>
+        </li>
+        <li>
+          <button onclick="showSection('forex')" class="py-2 px-4 w-full text-left">Forex</button>
+        </li>
+        <li>
+          <button onclick="showSection('cryptomonedas')" class="py-2 px-4 w-full text-left">Cryptomonedas</button>
+        </li>
+        <li>
+          <button onclick="showSection('stocks')" class="py-2 px-4 w-full text-left">Stocks</button>
+        </li>
+                <li>
+          <button onclick="showSection('Productos')" class="py-2 px-4 w-full text-left">Productos</button>
+        </li>
+      </ul>
+    </aside>
+    <!-- Main Content -->
+    <div class="container mx-auto p-8 w-3/4">
+      <!-- Search Bar -->
+      <div class="flex items-center justify-between mb-8">
+                <!-- Add buttons for Plan Free and Plan V.I.P -->
+                <button onclick="togglePlan('free')" class="py-2 px-4 bg-blue-600 text-white font-bold rounded">Plan Free</button>
+                <button onclick="togglePlan('vip')" class="py-2 px-4 bg-blue-600 text-white font-bold rounded">Plan V.I.P</button>
+        <input id="searchInput" type="text" class="px-4 py-2 w-1/2 bg-gray-800 text-white placeholder-gray-500 focus:outline-none" placeholder="Buscar..." oninput="searchContent()" onkeyup="searchOnEnter(event)">
+      </div>
+<!-- Cursos Section -->
+<div id="cursos" class="section hidden">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <!-- Curso Banner -->
+    <div class="curso-banner bg-blue-600 rounded-lg mb-4 col-span-3 flex flex-col items-center justify-center text-white text-center">
+      <h2 class="text-2xl font-bold">¡Bienvenido a nuestros cursos!</h2>
+      <p class="text-lg mt-2">Aprende con los mejores profesionales en el campo.</p>
+      <div class="mt-4">
+        <img src="https://jerxhlafffsgrhczkgpq.supabase.co/storage/v1/object/public/Images/image-uM5ZOTW7R-transformed%201.png?t=2023-07-20T21%3A02%3A27.096Z" alt="Imagen de Esquina" class="h-64">
+      </div>
+    </div>
+          <!-- Curso Card Example 1 -->
+          <div class="curso-card bg-gray-800 p-4 rounded-lg">
+            <div class="w-12 h-12 mb-4 bg-gray-700 rounded-full"></div> <!-- Placeholder for image -->
+            <h2 class="text-xl text-white font-bold mb-2">Curso 1</h2>
+            <p class="text-gray-400">Descripción del curso aquí.</p>
+          </div>
+          <!-- Curso Card Example 2 -->
+          <div class="curso-card bg-gray-800 p-4 rounded-lg">
+            <div class="w-12 h-12 mb-4 bg-gray-700 rounded-full"></div> <!-- Placeholder for image -->
+            <h2 class="text-xl text-white font-bold mb-2">Curso 2</h2>
+            <p class="text-gray-400">Descripción del curso aquí.</p>
+          </div>
+          <!-- Curso Card Example 3 -->
+          <div class="curso-card bg-gray-800 p-4 rounded-lg">
+            <div class="w-12 h-12 mb-4 bg-gray-700 rounded-full"></div> <!-- Placeholder for image -->
+            <h2 class="text-xl text-white font-bold mb-2">Curso 3</h2>
+            <p class="text-gray-400">Descripción del curso aquí.</p>
+          </div>
+          <!-- Add more curso cards here -->
+        </div>
+      </div>
+      
+      
+      <!-- Forex Section -->
+      <div id="forex" class="section grid grid-cols-1 md:grid-cols-3 gap-4 hidden">
+      <!-- White Rectangle -->
+      <div class="white-rectangle flex items-center justify-center">
+      <p class="text-white text-center">Sección disponible para planes Básico, Pro y V.I.P</p>
+      </div>
+        <!-- Forex Signal Card Example 1 -->
+        <div class="forex-card bg-gray-800 p-4 rounded-lg">
+          <h2 class="text-xl text-white font-bold mb-2">Señal de Forex 1</h2>
+          <p class="text-gray-400"><strong>Symbol:</strong> EUR/USD</p>
+          <p class="text-gray-400"><strong>Direction:</strong> Buy</p>
+          <p class="text-gray-400"><strong>Entry:</strong> 1.2000</p>
+          <p class="text-gray-400"><strong>EST:</strong> 10:00</p>
+          <p class="text-gray-400"><strong>Stop Loss:</strong> 1.1950</p>
+          <p class="text-gray-400"><strong>First Profit Target:</strong> 1.2050</p>
+          <p class="text-gray-400"><strong>Final Profit Target:</strong> 1.2100</p>
+        </div>
+        <!-- Forex Signal Card Example 2 -->
+        <div class="forex-card bg-gray-800 p-4 rounded-lg">
+          <h2 class="text-xl text-white font-bold mb-2">Señal de Forex 2</h2>
+          <p class="text-gray-400"><strong>Symbol:</strong> GBP/JPY</p>
+          <p class="text-gray-400"><strong>Direction:</strong> Sell</p>
+          <p class="text-gray-400"><strong>Entry:</strong> 155.50</p>
+          <p class="text-gray-400"><strong>EST:</strong> 12:30</p>
+          <p class="text-gray-400"><strong>Stop Loss:</strong> 156.00</p>
+          <p class="text-gray-400"><strong>First Profit Target:</strong> 154.00</p>
+          <p class="text-gray-400"><strong>Final Profit Target:</strong> 152.00</p>
+        </div>
+        <!-- Forex Signal Card Example 3 -->
+        <div class="forex-card bg-gray-800 p-4 rounded-lg">
+          <h2 class="text-xl text-white font-bold mb-2">Señal de Forex 3</h2>
+          <p class="text-gray-400"><strong>Symbol:</strong> USD/JPY</p>
+          <p class="text-gray-400"><strong>Direction:</strong> Buy</p>
+          <p class="text-gray-400"><strong>Entry:</strong> 110.80</p>
+          <p class="text-gray-400"><strong>EST:</strong> 15:15</p>
+          <p class="text-gray-400"><strong>Stop Loss:</strong> 110.40</p>
+          <p class="text-gray-400"><strong>First Profit Target:</strong> 111.50</p>
+          <p class="text-gray-400"><strong>Final Profit Target:</strong> 112.50</p>
+        </div>
+        <!-- Add more forex signal cards here -->
+      </div>
+      
+        <!-- Products Section -->
+      <div id="Productos" class="section grid grid-cols-1 md:grid-cols-3 gap-4 hidden">
+        <!-- Forex Signal Card Example 1 -->
+    <div class="card1">
+        <div class="lava-lamp">
+            <div class="blur-overlay"></div>
+        </div>
+        <h2>Gratis</h2>
+        <p><span style="font-size: 32px; font-weight: bold; color: #0C231F;">0$</span><span
+                style="font-size: 24px; font-weight: 600; color: rgba(12, 35, 31, 0.60);"> / Mes</span></p>
+        <p style="font-size: 16px;">¡Únete ahora y comienza a ganar con una prueba gratuita por 7 días!</p>
+        <ul>
+            <li><i class="fas fa-check-circle"></i> Señales vía Telegram</li>
+            <li><i class="fas fa-check-circle"></i> Análisis de señales</li>
+            <li><i class="fas fa-check-circle"></i> Acceso limitado a mercados</li>
+        </ul>
+        <button style="font-size: 16px; font-weight: 600; margin-bottom: 30px;">Iniciar ahora</button>
+    </div>
+        <!-- Add more forex signal cards here -->
+      </div>
+      
+      
+      <!-- Cryptomonedas Section -->
+      <div id="cryptomonedas" class="section grid grid-cols-1 md:grid-cols-3 gap-4 hidden">
+        <!-- Cryptomoneda Card Example 1 -->
+        <div class="crypto-card bg-gray-800 p-4 rounded-lg">
+          <h2 class="text-xl text-white font-bold mb-2">Criptomoneda 1</h2>
+          <p class="text-gray-400"><strong>Nombre:</strong> Bitcoin (BTC)</p>
+          <p class="text-gray-400"><strong>Precio:</strong> $40,000</p>
+          <p class="text-gray-400"><strong>Variación (24h):</strong> +5%</p>
+        </div>
+        <!-- Cryptomoneda Card Example 2 -->
+        <div class="crypto-card bg-gray-800 p-4 rounded-lg">
+          <h2 class="text-xl text-white font-bold mb-2">Criptomoneda 2</h2>
+          <p class="text-gray-400"><strong>Nombre:</strong> Ethereum (ETH)</p>
+          <p class="text-gray-400"><strong>Precio:</strong> $2,800</p>
+          <p class="text-gray-400"><strong>Variación (24h):</strong> +3%</p>
+        </div>
+        <!-- Cryptomoneda Card Example 3 -->
+        <div class="crypto-card bg-gray-800 p-4 rounded-lg">
+          <h2 class="text-xl text-white font-bold mb-2">Criptomoneda 3</h2>
+          <p class="text-gray-400"><strong>Nombre:</strong> Cardano (ADA)</p>
+          <p class="text-gray-400"><strong>Precio:</strong> $2.50</p>
+          <p class="text-gray-400"><strong>Variación (24h):</strong> -1%</p>
+        </div>
+        <!-- Add more cryptomoneda cards here -->
+      </div>
+<!-- Stocks Section -->
+<div id="stocks" class="section grid grid-cols-1 md:grid-cols-3 gap-4 hidden">
+  <!-- Buttons for layout control -->
+  <button onclick="displayThreeColumns()" class="py-2 px-4 bg-blue-600 text-white font-bold rounded mb-4">3 Columnas</button>
+  <button onclick="displayList()" class="py-2 px-4 bg-blue-600 text-white font-bold rounded mb-4">Lista</button>
+  <button onclick="cloneCards()" class="py-2 px-4 bg-blue-600 text-white font-bold rounded mb-4">Clonar</button>
+        <!-- Stock Card Example 1 -->
+        <div class="stock-card bg-gray-800 p-4 rounded-lg">
+          <h2 class="text-xl text-white font-bold mb-2">Stock 1</h2>
+          <p class="text-gray-400"><strong>Nombre:</strong> Apple Inc.</p>
+          <p class="text-gray-400"><strong>Símbolo:</strong> AAPL</p>
+          <p class="text-gray-400"><strong>Precio:</strong> $150.50</p>
+          <p class="text-gray-400"><strong>Variación (24h):</strong> +1%</p>
+        </div>
+        <!-- Stock Card Example 2 -->
+        <div class="stock-card bg-gray-800 p-4 rounded-lg">
+          <h2 class="text-xl text-white font-bold mb-2">Stock 2</h2>
+          <p class="text-gray-400"><strong>Nombre:</strong> Microsoft Corporation</p>
+          <p class="text-gray-400"><strong>Símbolo:</strong> MSFT</p>
+          <p class="text-gray-400"><strong>Precio:</strong> $300.20</p>
+          <p class="text-gray-400"><strong>Variación (24h):</strong> +2%</p>
+        </div>
+        <!-- Stock Card Example 3 -->
+        <div class="stock-card bg-gray-800 p-4 rounded-lg">
+          <h2 class="text-xl text-white font-bold mb-2">Stock 3</h2>
+          <p class="text-gray-400"><strong>Nombre:</strong> Tesla Inc.</p>
+          <p class="text-gray-400"><strong>Símbolo:</strong> TSLA</p>
+          <p class="text-gray-400"><strong>Precio:</strong> $750.00</p>
+          <p class="text-gray-400"><strong>Variación (24h):</strong> -1%</p>
+        </div>
+        <!-- Add more stock cards here -->
+      </div>
+      <!-- Cloned Stocks Section -->
+<div id="cloned-stocks" class="section grid grid-cols-1 md:grid-cols-1 gap-4 hidden">
+</div>
+
+    </div>
+  </div>
+  <script>
+let currentUserPlan = 'free'; // Set the default plan to 'free'
+
+// Function to toggle the plan between 'free' and 'vip'
+function togglePlan(plan) {
+  currentUserPlan = plan;
+  updateSectionVisibility();
+}
+
+function updateSectionVisibility() {
+  const forexSection = document.getElementById('forex');
+  const whiteRectangle = document.querySelector('.white-rectangle');
+
+  // Show/hide Forex section based on the current user plan
+  if (currentUserPlan === 'free') {
+    forexSection.classList.remove('disable-blur-filter'); // Enable the blur filter
+    whiteRectangle.style.display = 'flex'; // Show the white rectangle with the message
+  } else if (currentUserPlan === 'vip') {
+    forexSection.classList.add('disable-blur-filter'); // Disable the blur filter
+    whiteRectangle.style.display = 'none'; // Hide the white rectangle with the message
+  }
+}
+
+// Function to show/hide the sections based on the clicked tab
+function showSection(sectionId) {
+  const sections = document.querySelectorAll('.section');
+  sections.forEach(section => section.classList.add('hidden'));
+
+  const selectedSection = document.getElementById(sectionId);
+  selectedSection.classList.remove('hidden');
+
+  // Execute search each time a section is switched
+  searchContent();
+}
+
+function removeClonedCards() {
+  const clonedCardsSection = document.getElementById('cloned-stocks');
+  if (clonedCardsSection) {
+    clonedCardsSection.innerHTML = '';
+    clonedCardsSection.dataset.cloned = 'false';
+  }
+}
+
+// Function to search content in each section
+function searchContent() {
+  const searchInput = document.getElementById('searchInput');
+  const searchText = searchInput.value.toLowerCase();
+  const allCards = document.querySelectorAll('.section .bg-gray-800');
+
+  allCards.forEach(card => {
+    const cardContent = card.textContent.toLowerCase();
+    const cardSection = card.closest('.section').id;
+
+    if (cardContent.includes(searchText) && searchText.trim() !== "") {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+
+  // If the search text is empty, show all the cards
+  if (searchText.trim() === "") {
+    showAllCardsInCurrentSection(getCurrentSectionId());
+  }
+}
+
+// Function to handle Enter key press in the search input
+function searchOnEnter(event) {
+  if (event.key === "Enter") {
+    searchContent();
+  }
+}
+
+// Function to get the current section ID
+function getCurrentSectionId() {
+  const sections = document.querySelectorAll('.section');
+  for (let i = 0; i < sections.length; i++) {
+    if (!sections[i].classList.contains('hidden')) {
+      return sections[i].id;
+    }
+  }
+  return '';
+}
+
+// Function to show all cards in the current section
+function showAllCardsInCurrentSection(sectionId) {
+  const sectionCards = document.querySelectorAll(`#${sectionId} .bg-gray-800`);
+  sectionCards.forEach(card => {
+    card.style.display = 'block';
+  });
+}
+
+function displayThreeColumns() {
+  const stocksSection = document.getElementById('stocks');
+  stocksSection.classList.remove('md:grid-cols-1');
+  stocksSection.classList.add('md:grid-cols-3');
+  
+  // Remove cloned cards when changing view
+  removeClonedCards();
+}
+
+function displayList() {
+  const stocksSection = document.getElementById('stocks');
+  stocksSection.classList.remove('md:grid-cols-3');
+  stocksSection.classList.add('md:grid-cols-1');
+  
+  // Remove cloned cards when changing view
+  removeClonedCards();
+}
+
+function cloneCards() {
+  const clonedCardsSection = document.getElementById('cloned-stocks');
+  if (clonedCardsSection.dataset.cloned === 'true') return;
+
+  const stocksSection = document.getElementById('stocks');
+
+  // Set the original cards to 3 columns view
+  stocksSection.classList.remove('md:grid-cols-1');
+  stocksSection.classList.add('md:grid-cols-3');
+
+  const cards = Array.from(stocksSection.getElementsByClassName('stock-card'));
+
+  cards.forEach((card) => {
+    const clonedCard = card.cloneNode(true);
+    clonedCard.classList.add('card-cloned');
+    clonedCardsSection.appendChild(clonedCard);
+  });
+
+  clonedCardsSection.classList.remove('hidden');
+  clonedCardsSection.classList.add('md:grid-cols-1');
+  clonedCardsSection.dataset.cloned = 'true';
+}
+
+// Initial update of section visibility based on the default plan
+updateSectionVisibility();
+
+
+  </script>
+</body>
+</html>
