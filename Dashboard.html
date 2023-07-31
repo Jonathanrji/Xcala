@@ -310,6 +310,10 @@
         <div class="dashBoardContent">
           <div class="titleDashBoard">
                 <h1>Dashboard</h1>
+                <button id="showCardsButton" class="py-2 px-4 bg-blue-600 text-white font-bold rounded">Mostrar Tarjetas</button>
+<button id="showTableButton" class="py-2 px-4 bg-blue-600 text-white font-bold rounded">Mostrar Tabla</button>
+<button id="showAllButton" class="py-2 px-4 bg-blue-600 text-white font-bold rounded">Mostrar Todo</button>
+
               </div>
             <div class="topDashBoard">
               <div class="cardDashBoard">    
@@ -796,6 +800,33 @@ function cloneCards() {
 
 // Initial update of section visibility based on the default plan
 updateSectionVisibility();
+
+// Obtén referencias a los botones, las tarjetas y la tabla
+var showCardsButton = document.getElementById('showCardsButton');
+var showTableButton = document.getElementById('showTableButton');
+var showAllButton = document.getElementById('showAllButton');
+var cardDashboard = document.querySelector('.cardDashBoard');
+var informationContentDash = document.querySelector('.informationContentDash');
+
+// Agrega escuchadores de eventos a los botones
+showCardsButton.addEventListener('click', function() {
+  // Muestra solo las tarjetas
+  cardDashboard.style.display = 'flex';
+  informationContentDash.style.display = 'none';
+});
+
+showTableButton.addEventListener('click', function() {
+  // Muestra solo la tabla
+  cardDashboard.style.display = 'none';
+  informationContentDash.style.display = 'block';
+});
+
+showAllButton.addEventListener('click', function() {
+  // Muestra las tarjetas y la tabla
+  cardDashboard.style.display = 'flex';
+  informationContentDash.style.display = 'block';
+});
+
 
 
   </script>
