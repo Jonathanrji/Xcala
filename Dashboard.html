@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Dark Theme</title>
   <!-- Tailwind CSS -->
@@ -23,6 +24,44 @@
       background-color: #3b82f6;
       border-radius: 20px;
     }
+/*  aside nav  */
+    .textNavEdit {
+      display: flex;
+      font-family: inter;
+      padding: 16px;
+      border-radius: 8px;
+      color: rgba(12, 35, 31, 0.6);
+      font-weight: 500;
+      align-items: center;
+      gap: 4px;
+    }
+    .textNavEdit:hover{
+      background: #277768;
+      color: white;
+      transition: background 0.3s ease;
+    }
+
+    .imgAsideNav{
+      width: 20px;
+      height: 20px;
+      background-image: url('https://www.xcalatrade.com/wp-content/uploads/2023/08/chart_data-black.png');
+    }
+    .textNavEdit:hover .imgAsideNav{
+      background-image: url('https://www.xcalatrade.com/wp-content/uploads/2023/08/chart_data.png');
+    }
+    .textNavEdit:focus .imgAsideNav{
+      background-image: url('https://www.xcalatrade.com/wp-content/uploads/2023/08/chart_data.png');
+    }
+
+
+    @media screen and (max-width: 675px) {
+      .asideDashBoard{
+
+      }
+      
+    }
+
+/*aside nav final*/
 
 .card1 {
   width: 300px;
@@ -94,7 +133,6 @@
     margin-top: 15px;
 }
 .card1 button:hover {
-    background: #0C231F;
     border: none;
 }
 .card1 button:active {
@@ -147,13 +185,11 @@
   }
 /* DASBOARD CONTENT */
 
-  .dashBoardContent{
-    margin:0;
+  .dashBoardContent {
+    margin: 0;
     padding: 0;
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-  }
+}
   .titleDashBoard{
     width: 100%;
     color: #000;
@@ -169,10 +205,12 @@
     width: 100%;
     display: flex;
   }
-  .cardDashBoard{
-    display: flex;
+.cardDashBoard {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax( 300px, 1fr));
     gap: 30px;
-  }
+}
   .dasBoardCardsMarkets{
     width: 300px;
     border-radius: 12px;
@@ -181,6 +219,7 @@
     text-align: center;
     margin-right: 20px;
     box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.10);
+    overflow-x: auto;
   }
   .titleAndSubtitleCard{
     color: #0C231F;
@@ -200,14 +239,14 @@
     font-weight: 400;
     line-height: 120%; /* 12px */
     letter-spacing: -0.2px;
-      }
+    }
 
   .orderTextDashBoard{
     margin: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between; 
-}
+    }
    .btnclass {
     margin-top: 24px;
     border-radius: 4px;
@@ -215,16 +254,19 @@
     color: #FFF;
     background: #DC5564;
     cursor: pointer;
-}
-.titleCardsH3{
-  color: rgba(12, 35, 31, 0.60);
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 120%; /* 14.4px */
-  letter-spacing: -0.24px;
-}
+    }
+    .titleCardsH3{
+    color: rgba(12, 35, 31, 0.60);
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%; /* 14.4px */
+    letter-spacing: -0.24px;
+    }
+    button.btnComprarVentaDasboard {
+    border: none;
+    }
 /*css de tabla add*/
     .informationContentDash{
       width: 100%;
@@ -299,7 +341,7 @@
           transition: background 0.3s ease;
         }
         .btnBlack{
-          opacity: 1;
+          opacity: 0;
           position: absolute;
           top: 0;
           left: 0;
@@ -307,56 +349,107 @@
         }
         
         .btnWhite{
-          opacity: 0;
+          opacity: 1;
           position: absolute;
           transition: opacity 0.3s ease;
         }
         
         .btnBlack:hover{
-          opacity: 0;
-        }
-        .btnWhite:hover{
           opacity: 1;
         }
+        .btnWhite:hover{
+          opacity: 0;
+        }
+        .btnBlack:focus{
+          opacity: 1;
+        }
+        .btnWhite:focus{
+          opacity: 0;
+        }
+        button.textNavEdit.w-full.text-left {
+         border: none;
+        }
+        button#showAllButton {
+        border: none;
+        }
+        button#showCardsButton {
+        border: none;
+        }
+        button#showTableButton {
+        border: none;
+        }
+        button.textNavEdit.w-full.text-left:focus {
+        color: white;
+        background: #277768;
+        border: none;
+        }
+        
         /*  css botones del dashboard final   */
+        
+        @media (min-width: 768px) {
+  /* A partir de 768px (pantallas medianas y superiores), las tarjetas se mostrarán en fila y con espacio entre ellas */
+  .dashBoardContent {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+  .card1 {
+    margin-bottom: 0;  /* Se elimina el margen inferior de las tarjetas en pantallas medianas y superiores */
+  }
 
   </style>
 </head>
 <body>
-   <div class="flex">
+   <div class="flex"  id="app">
     <!-- Sidebar -->
-    <aside class="bg-white w-1/4 min-h-screen p-8">
+    <aside class="asideDashBoard bg-white w-1/6 min-h-screen p-8">
       
       <ul class="text-black space-y-4">
         <li>
-          <button onclick="showSection('DashBoard')" class="py-2 px-4 w-full text-left">Dashboard</button>
+          <button onclick="showSection('DashBoard')" class="textNavEdit w-full text-left">
+            <figure class="imgAsideNav"></figure>
+            
+             Dashboard
+            </button>
         </li>
         <li>
-          <button onclick="showSection('cursos')" class="py-2 px-4 w-full text-left">Cursos</button>
+          <button id="pruebaBtn" onclick="showSection('cursos')" class="textNavEdit w-full text-left">
+          <figure class="imgAsideNav"></figure>
+            Cursos
+      </button>
         </li>
         <li>
-          <button onclick="showSection('forex')" class="py-2 px-4 w-full text-left">Forex</button>
+          <button onclick="showSection('forex')" class="textNavEdit w-full text-left">
+          <figure class="imgAsideNav"></figure>
+            Forex
+      </button>
         </li>
         <li>
-          <button onclick="showSection('cryptomonedas')" class="py-2 px-4 w-full text-left">Cryptomonedas</button>
+          <button onclick="showSection('cryptomonedas')" class="textNavEdit w-full text-left">
+          <figure class="imgAsideNav"></figure>
+            Cryptomonedas
+      </button>
         </li>
         <li>
-          <button onclick="showSection('stocks')" class="py-2 px-4 w-full text-left">Stocks</button>
+          <button onclick="showSection('stocks')" class="textNavEdit w-full text-left">
+          <figure class="imgAsideNav"></figure>
+            Stocks
+      </button>
         </li>
                 <li>
-          <button onclick="showSection('Productos')" class="py-2 px-4 w-full text-left">Productos</button>
+          <button onclick="showSection('Productos')" class="textNavEdit w-full text-left">
+          <figure class="imgAsideNav"></figure>
+            Productos
+      </button>
         </li>
       </ul>
     </aside>
     <!-- topMain star -->
-    <div class="container mx-auto p-8 w-3/4">
+    <div class="container  p-8 w-3/4">
       <!-- Search Bar -->
-      <div class="flex items-center justify-between mb-8">
+      <!--<div class="flex items-center justify-between mb-8">-->
                 <!-- Add buttons for Plan Free and Plan V.I.P -->
-                <button onclick="togglePlan('free')" class="py-2 px-4 bg-blue-600 text-white font-bold rounded">Plan Free</button>
-                <button onclick="togglePlan('vip')" class="py-2 px-4 bg-blue-600 text-white font-bold rounded">Plan V.I.P</button>
-        <input id="searchInput" type="text" class="px-4 py-2 w-1/2 bg-gray-800 text-white placeholder-gray-500 focus:outline-none" placeholder="Buscar..." oninput="searchContent()" onkeyup="searchOnEnter(event)">
-      </div>
+      <!--  <input id="searchInput" type="text" class="px-4 py-2 w-1/2 bg-[#F0F0F0] text-white placeholder-salte-300 focus:outline-none" placeholder="Buscar..." oninput="searchContent()" onkeyup="searchOnEnter(event)">-->
+      <!--</div>-->
 
       <!-- topMain end-->
        <!-- DasBoardContent star-->
@@ -367,29 +460,31 @@
 
                 <div class="containerBtnDashBoard">
                 <button id="showAllButton" class="btnAllShow">
-                  <img src="https://www.xcalatrade.com/wp-content/uploads/2023/07/All-icon-dashboard-text.png" class="btnBlack" alt="">
-                  <img src="https://www.xcalatrade.com/wp-content/uploads/2023/07/All-icon-dashboard-text-white.png" class="btnwhite" alt="">
+                  <img src="https://www.xcalatrade.com/wp-content/uploads/2023/08/All-icon-dashboard-black.png" class="btnBlack" alt="">
+                  <img src="https://www.xcalatrade.com/wp-content/uploads/2023/08/All-icon-dashboard-text-white-new.png" class="btnwhite" alt="">
+                  
+                  
                 </button>
                 <button id="showCardsButton" class="btnCardShow">
-                  <img src="https://www.xcalatrade.com/wp-content/uploads/2023/07/Cards-icon-dasboard.png" class="btnBlack" alt="">
-                  <img src="https://www.xcalatrade.com/wp-content/uploads/2023/07/Cards-icon-dasboard-white.png" class="btnwhite" alt="">
+                  <img src="https://www.xcalatrade.com/wp-content/uploads/2023/08/Cards-icon-dasboard-black.png" class="btnBlack" alt="">
+                  <img src="https://www.xcalatrade.com/wp-content/uploads/2023/08/Cards-icon-dasboard-white-new.png" class="btnwhite" alt="">
 
                 </button>
                 <button id="showTableButton" class="btnListShow">
-                  <img src="https://www.xcalatrade.com/wp-content/uploads/2023/07/List-icon-dasboard.png" class="btnBlack" alt="">
-                  <img src="https://www.xcalatrade.com/wp-content/uploads/2023/07/List-icon-dasboard-white.png" class="btnwhite" alt="">
+                  <img src="https://www.xcalatrade.com/wp-content/uploads/2023/08/List-icon-dasboard-black.png" class="btnBlack" alt="">
+                  <img src="https://www.xcalatrade.com/wp-content/uploads/2023/08/List-icon-dasboard-white-new.png" class="btnwhite" alt="">
 
                 </button>
                 </div>
 
               </div>
             <div class="topDashBoard">
-              <div class="cardDashBoard">    
+              <div class="cardDashBoard">
                  <!-- Forex Signal Card Example 1 -->
-          <div class="dasBoardCardsMarkets">
+          <div class="dasBoardCardsMarkets" v-for="signal in filteredSignals"  :key="signal.signalID">
             <div class="titleAndSubtitleCard">
               <p class="titleAndSubtitleCardSub"><span>Sell limit</span></p>
-              <h2 class="titleCard  text-xl text-black font-bold mb-2">NZDUSD</h2>
+              <h2 class="titleCard  text-xl text-black font-bold mb-2">{{ signal.symbol }}</h2>
             </div>
             <div class="orderTextDashBoard">
                 <h3 class="titleCardsH3">Model</h3>
@@ -397,172 +492,56 @@
                 </div>
             <div class="orderTextDashBoard">
                 <h3>Stop</h3>
-                <p>115487</p>
+                <p>{{ signal['Stop Loss'] }}</p>
                 </div>
             <div class="orderTextDashBoard">
+                <h3>EST:</h3>
+                <p>{{ signal.EST }}</p>
+              </div>
+              <div class="orderTextDashBoard">
                 <h3>Entry</h3>
-                <p>115487</p>
-                </div>
+                <p>{{ signal.Entry }}</p>
+              </div>
+              <div class="orderTextDashBoard">
+                <h3>First Profit Target</h3>
+                <p>{{ signal['First Profit Target'] }}</p>
+              </div>
             <div class="orderTextDashBoard">
-                <h3>Target</h3>
-                <p>115487</p>
+                <h3>Final Profit Target</h3>
+                <p>{{ signal['Final Profit Target'] }}</p>
                 </div>
+          </div>
 
-                <div class="btnclass">
-            <button class="btnComprarVentaDasboard">Comprar</button>
-                </div>
-          </div>
-          <!-- Forex Signal Card Example 2 -->
-          <div class="dasBoardCardsMarkets">
-            <div class="titleAndSubtitleCard">
-              <p class="titleAndSubtitleCardSub"><span>Sell limit</span></p>
-              <h2 class="titleCard  text-xl text-black font-bold mb-2">USDCAD</h2>
-            </div>
-            <div class="orderTextDashBoard">
-                <h3>Model</h3>
-                <p>Swing</p>
-                </div>
-            <div class="orderTextDashBoard">
-                <h3>Stop</h3>
-                <p>115487</p>
-                </div>
-            <div class="orderTextDashBoard">
-                <h3>Entry</h3>
-                <p>115487</p>
-                </div>
-            <div class="orderTextDashBoard">
-                <h3>Target</h3>
-                <p>115487</p>
-                </div>
-
-                <div class="btnclass">
-            <button class="btnComprarVentaDasboard">Comprar</button>
-                </div>
-          </div>
-          <!-- Forex Signal Card Example 3 -->
-          <div class="dasBoardCardsMarkets">
-             <div class="titleAndSubtitleCard">
-              <p class="titleAndSubtitleCardSub"><span>Sell limit</span></p>
-              <h2 class="titleCard  text-xl text-black font-bold mb-2">NZDUSD</h2>
-            </div>
-            <div class="orderTextDashBoard">
-                <h3>Model</h3>
-                <p>Swing</p>
-                </div>
-            <div class="orderTextDashBoard">
-                <h3>Stop</h3>
-                <p>115487</p>
-                </div>
-            <div class="orderTextDashBoard">
-                <h3>Entry</h3>
-                <p>115487</p>
-                </div>
-            <div class="orderTextDashBoard">
-                <h3>Target</h3>
-                <p>115487</p>
-                </div>
-                <div class="btnclass">
-            <button class="btnComprarVentaDasboard">Comprar</button>
-                </div>
-          </div>
-          <!-- Forex Signal Card Example 4 -->
-          <div class="dasBoardCardsMarkets">
-             <div class="titleAndSubtitleCard">
-              <p class="titleAndSubtitleCardSub"><span>Sell limit</span></p>
-              <h2 class="titleCard  text-xl text-black font-bold mb-2">NZDUSD</h2>
-            </div>
-            <div class="orderTextDashBoard">
-                <h3>Model</h3>
-                <p>Swing</p>
-                </div>
-            <div class="orderTextDashBoard">
-                <h3>Stop</h3>
-                <p>115487</p>
-                </div>
-            <div class="orderTextDashBoard">
-                <h3>Entry</h3>
-                <p>115487</p>
-                </div>
-            <div class="orderTextDashBoard">
-                <h3>Target</h3>
-                <p>115487</p>
-                </div>
-                <div class="btnclass">
-            <button class="btnComprarVentaDasboard">Comprar</button>
-                </div>
-          </div>
-          <!-- Forex Signal Card Example 5 -->
-          <div class="dasBoardCardsMarkets">
-             <div class="titleAndSubtitleCard">
-              <p class="titleAndSubtitleCardSub"><span>Sell limit</span></p>
-              <h2 class="titleCard  text-xl text-black font-bold mb-2">NZDUSD</h2>
-            </div>
-            <div class="orderTextDashBoard">
-                <h3>Model</h3>
-                <p>Swing</p>
-                </div>
-            <div class="orderTextDashBoard">
-                <h3>Stop</h3>
-                <p>115487</p>
-                </div>
-            <div class="orderTextDashBoard">
-                <h3>Entry</h3>
-                <p>115487</p>
-                </div>
-            <div class="orderTextDashBoard">
-                <h3>Target</h3>
-                <p>115487</p>
-                </div>
-                <div class="btnclass">
-            <button class="btnComprarVentaDasboard">Comprar</button>
-                </div>
-          </div>
+          
               </div>
               </div>
           <div class="informationContentDash">
 
     <!-- table inicio -->
   <table >
-        <tr>
-            <th>Symbol</th>
-            <th>Direction</th>
-            <th>Entry</th>
-            <th>EST</th>
-            <th>Stop Loss</th>
-            <th>First Profit Target</th>
-            <th>Final Profit Target</th>
-            <th>Action</th>
-        </tr>
-        <tr>
-            <td>EUR/USD</td>
-            <td>Buy</td>
-            <td>1.2000</td>
-            <td>10:00</td>
-            <td>1.1950</td>
-            <td>1.2050</td>
-            <td>1.2100</td>
-            <td><button class="btnBuyTable">buy</button></td>
-        </tr>
-        <tr>
-            <td>EUR/USD</td>
-            <td>Buy</td>
-            <td>1.2000</td>
-            <td>10:00</td>
-            <td>1.1950</td>
-            <td>1.2050</td>
-            <td>1.2100</td>
-            <td><button class="btnBuyTable">buy</button></td>
-        </tr>
-        <tr>
-            <td>EUR/USD</td>
-            <td>Buy</td>
-            <td>1.2000</td>
-            <td>10:00</td>
-            <td>1.1950</td>
-            <td>1.2050</td>
-            <td>1.2100</td>
-            <td><button class="btnBuyTable">buy</button></td>
-        </tr>
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th>Direction</th>
+        <th>Entry</th>
+        <th>EST</th>
+        <th>Stop Loss</th>
+        <th>First Profit Target</th>
+        <th>Final Profit Target</th>
+      </tr>
+    </thead>
+
+        <tbody v-for="signal in filteredSignals"  :key="signal.signalID">
+          <tr>
+              <td>{{ signal.symbol }}</td>
+              <td>{{ signal.Direction }}</td>
+              <td>{{ signal.Entry }}</td>
+              <td>{{ signal.EST }}</td>
+              <td>{{ signal['Stop Loss'] }}</td>
+              <td>{{ signal['First Profit Target'] }}</td>
+              <td>{{ signal['Final Profit Target'] }}</td>
+          </tr>
+        </tbody>
     </table>
     </tbody>
   </table>
@@ -697,10 +676,7 @@
       </div>
 <!-- Stocks Section -->
 <div id="stocks" class="section grid grid-cols-1 md:grid-cols-3 gap-4 hidden">
-  <!-- Buttons for layout control -->
-  <button onclick="displayThreeColumns()" class="py-2 px-4 bg-blue-600 text-white font-bold rounded mb-4">3 Columnas</button>
-  <button onclick="displayList()" class="py-2 px-4 bg-blue-600 text-white font-bold rounded mb-4">Lista</button>
-  <button onclick="cloneCards()" class="py-2 px-4 bg-blue-600 text-white font-bold rounded mb-4">Clonar</button>
+  
         <!-- Stock Card Example 1 -->
         <div class="stock-card bg-gray-800 p-4 rounded-lg">
           <h2 class="text-xl text-white font-bold mb-2">Stock 1</h2>
@@ -734,6 +710,32 @@
     </div>
   </div>
   <script>
+    new Vue({
+      el: '#app',
+      data: {
+        signals: []
+      },
+      computed: {
+        filteredSignals() {
+          return this.signals.filter(signal => signal.signal === "100" || signal.signal === "101" || signal.signal === "131");
+        },
+      },
+      mounted() {
+        this.fetchData();
+      },
+      methods: {
+        fetchData() {
+          fetch('https://173.225.111.118/SignalHub_EX/jsonPage_EX.aspx?guid=4934F9BD-98A8-4642-8729-26BBB389FA51&acct=NateUser')
+            .then(response => response.json())
+            .then(data => {
+              this.signals = data.Signals;
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        }
+      }
+    });
 let currentUserPlan = 'free'; // Set the default plan to 'free'
 
 // Function to toggle the plan between 'free' and 'vip'
@@ -879,7 +881,7 @@ var informationContentDash = document.querySelector('.informationContentDash');
 // Agrega escuchadores de eventos a los botones
 showCardsButton.addEventListener('click', function() {
   // Muestra solo las tarjetas
-  cardDashboard.style.display = 'flex';
+  cardDashboard.style.display = 'grid';
   informationContentDash.style.display = 'none';
 });
 
@@ -891,7 +893,7 @@ showTableButton.addEventListener('click', function() {
 
 showAllButton.addEventListener('click', function() {
   // Muestra las tarjetas y la tabla
-  cardDashboard.style.display = 'flex';
+  cardDashboard.style.display = 'grid';
   informationContentDash.style.display = 'block';
 });
 
